@@ -1,2 +1,10 @@
-// api/index.js — експорт Express-додатку для Vercel Serverless
-module.exports = require('../app');
+import serverless from 'serverless-http';
+import app from '../src/app.js';
+
+export const config = {
+  api: {
+    bodyParser: false,
+  },
+};
+
+export default serverless(app);

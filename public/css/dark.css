@@ -1,9 +1,0 @@
-/* public/css/dark.css */
-:root{--brand:#93c5fd;--text:#e5e7eb;--muted:#9ca3af;--bg:#0b1020;--card:#111827;--line:#1f2937;--chip:#1d243a;--chiptext:#c7d2fe;}
-html,body{background:var(--bg);color:var(--text)}
-.classy-header,.footer{background:#0f172a;border-color:#1f2937}
-.card,.profile{background:var(--card);border-color:var(--line)}
-.tag{background:var(--chip);color:var(--chiptext)}
-.btn{background:#2563eb}
-.btn.btn--ghost{background:transparent;border-color:#2563eb;color:#93c5fd}
-.article__cover img{background:#0f172a;border-color:#1f2937}

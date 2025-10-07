@@ -1,24 +1,26 @@
 {
-  "name": "dz61",
+  "name": "dz64",
+  "version": "1.0.0",
   "private": true,
-  "type": "commonjs",
+  "type": "module",
   "scripts": {
-    "dev": "node app.js",
-    "start": "node app.js"
+    "dev": "node server.js",
+    "start": "node server.js",
+    "seed": "node seed.js"
   },
   "dependencies": {
     "bcryptjs": "^2.4.3",
-    "cookie-parser": "^1.4.7",
-    "cookie-session": "^2.1.1",
-    "ejs": "^3.1.10",
+    "cookie-parser": "^1.4.6",
+    "cookie-session": "^2.0.0",
+    "dotenv": "^16.6.1",
+    "ejs": "^3.1.9",
     "express": "^4.19.2",
-    "express-session": "^1.17.3",
     "jsonwebtoken": "^9.0.2",
-    "mongoose": "^8.19.1",
-    "morgan": "^1.10.1",
+    "mongoose": "^8.5.1",
+    "morgan": "^1.10.0",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
     "pug": "^3.0.3",
-    "serverless-http": "^4.0.0"
+    "serverless-http": "^3.2.0"
   }
 }

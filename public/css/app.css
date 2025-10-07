@@ -1,1 +1,0 @@
-*{box-sizing:border-box}.container{max-width:900px;margin:20px auto;padding:0 16px}.cards{list-style:none;display:grid;grid-template-columns:repeat(auto-fill,minmax(240px,1fr));gap:12px;padding:0}.card{border:1px solid #eee;border-radius:12px;padding:12px;background:#fff}.empty{padding:12px;border:1px dashed #ddd;border-radius:12px;background:#fafafa}
