@@ -7,14 +7,18 @@
     "start": "node app.js"
   },
   "dependencies": {
+    "bcryptjs": "^2.4.3",
+    "cookie-parser": "^1.4.7",
+    "cookie-session": "^2.1.1",
     "ejs": "^3.1.10",
     "express": "^4.19.2",
-    "pug": "^3.0.3",
-    "cookie-parser": "^1.4.7",
+    "express-session": "^1.17.3",
     "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.19.1",
+    "morgan": "^1.10.1",
     "passport": "^0.7.0",
     "passport-local": "^1.0.0",
-    "express-session": "^1.17.3",
-    "bcryptjs": "^2.4.3"
+    "pug": "^3.0.3",
+    "serverless-http": "^4.0.0"
   }
 }
