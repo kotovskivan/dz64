@@ -31,17 +31,6 @@ npm run dev            # http://localhost:3000
 - `GET /protected_passport` — перевірка сесії Passport
 - `GET /theme/:name` — збереження теми у cookie (`light|dark`)
 
-## Деплой на Vercel
-1. Залийте репо на GitHub
-2. У Vercel створіть проект з цього репо
-3. Додайте **Environment Variables**:
-   - `MONGODB_URI`
-   - `SESSION_SECRET`
-   - `JWT_SECRET`
-4. Нічого не змінюйте в налаштуваннях build: `vercel.json` вже містить `api/index.js`
-5. Після деплою заповніть БД (локально `npm run seed` або окремий одноразовий запуск на сервері).
-
-> **Увага:** На Vercel `cookie-session` працює без зовнішнього стору. Локально все так само. `secure:true` автоматично вмикається у проді.
 
 ## Структура
 ```
