@@ -1,0 +1,91 @@
+--- a/app.js
++++ b/app.js
+@@ -1,12 +1,18 @@
+ const express = require('express');
+ const passport = require('passport');
+ const path = require('path');
++const cookieSession = require('cookie-session');
+ 
+ // ...твоя решта імпортів
+ 
+ const app = express();
+ 
+ // якщо маєш middleware для favicon:
+ // app.use('/favicon.ico', (req, res) => res.status(204).end());
++// ДЛЯ Vercel (проксі) — важливо:
++app.set('trust proxy', 1);
+ 
+ // ...твій інший middleware (body-parser/json/urlencoded і т.д.)
+ 
+-// СТАРЕ: express-session (на Vercel не зберігає стан між інвокаціями)
+-// const session = require('express-session');
+-// app.use(session({ /* ... */ }));
++// НОВЕ: умовне підключення cookie-session для Vercel/preview
++if (process.env.VERCEL || process.env.USE_COOKIE_SESSION) {
++  app.use(cookieSession({
++    name: 'sess',
++    keys: [process.env.SESSION_SECRET || 'dz63_secret'],
++    maxAge: 24 * 60 * 60 * 1000,
++    sameSite: 'lax',
++    secure: process.env.NODE_ENV === 'production'
++  }));
++} else {
++  const session = require('express-session');
++  app.use(session({
++    secret: process.env.SESSION_SECRET || 'dz63_secret',
++    resave: false,
++    saveUninitialized: false,
++    cookie: {
++      httpOnly: true,
++      secure: process.env.NODE_ENV === 'production',
++      sameSite: 'lax',
++      maxAge: 24 * 60 * 60 * 1000
++    }
++  }));
++}
+ 
+ // Passport має бути після підключення сесії
+ app.use(passport.initialize());
+ app.use(passport.session());
+ 
+@@ -30,6 +36,38 @@
+ // res.locals для шаблонів (щоб знати, чи користувач залогінений)
+ app.use((req, res, next) => {
+   res.locals.passportAuth = Boolean(req.isAuthenticated && req.isAuthenticated());
+   res.locals.passportUser = req.user || null;
+   next();
+ });
+ 
++// ----- РОУТИ АВТЕНТИФІКАЦІЇ (кастомні колбеки) -----
++const bcrypt = require('bcryptjs');
++// usersStore — приклад. У тебе може бути інше джерело (БД тощо).
++const usersStore = global.__usersStore || (global.__usersStore = []);
++
++app.post('/auth/login', (req, res, next) => {
++  passport.authenticate('local', (err, user, info) => {
++    if (err) return next(err);
++    if (!user) return res.status(400).json({ message: 'Невірний email або пароль' });
++    req.logIn(user, (e) => {
++      if (e) return next(e);
++      return res.json({ message: 'Вхід успішний', user: { email: user.email } });
++    });
++  })(req, res, next);
++});
++
++app.post('/auth/register', async (req, res, next) => {
++  try {
++    const { email, password } = req.body || {};
++    if (!email || !password) return res.status(400).json({ message: 'Вкажіть email і пароль' });
++    if (usersStore.find(u => u.email === email)) return res.status(400).json({ message: 'Email вже зареєстрований' });
++    const passwordHash = await bcrypt.hash(password, 10);
++    const user = { email, passwordHash };
++    usersStore.push(user);
++    req.login(user, () => res.json({ message: 'Реєстрація успішна й виконано вхід', user: { email } }));
++  } catch (e) {
++    next(e);
++  }
++});
++
+ // ...далі твої роути (у т.ч. /protected_passport)
+ 
+ module.exports = app;

@@ -1,0 +1,31 @@
+<% layout('layout') %>
+<section aria-label="Статті" class="articles">
+  <h1 class="articles__title">Статті</h1>
+  <ul class="articles__list">
+    <% articles.forEach(a => { %>
+      <li class="articles__item">
+        <article class="articles__card">
+          <h2 class="articles__name"><%= a.title %></h2>
+          <p class="articles__meta">ID: <%= a.id %> · Автор: <%= a.author %></p>
+          <p class="articles__summary"><%= a.summary %></p>
+          <a class="articles__link" href="/articles/<%= a.id %>">Деталі статті →</a>
+        </article>
+      </li>
+    <% }) %>
+  </ul>
+</section>
+
+<section aria-label="Демо-картки статей" class="articles">
+  <h2 class="articles__title">Додаткові приклади</h2>
+  <ul class="articles__list">
+    <% for (let n=1; n<=6; n++) { %>
+      <li class="articles__item">
+        <article class="articles__card">
+          <h3 class="articles__name">Демо-стаття №<%= n %></h3>
+          <p class="articles__summary">Приклад контенту для естетичної перевірки. Українська мова.</p>
+          <a class="articles__link" href="/articles">До списку</a>
+        </article>
+      </li>
+    <% } %>
+  </ul>
+</section>

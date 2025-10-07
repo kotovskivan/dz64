@@ -1,0 +1,19 @@
+extends ./layout.pug
+block content
+  h1.h1 Користувачі
+  ul.cards.grid
+    each u in users
+      li.card
+        a.card__media(href=`/users/${u.id}`)
+          img(src=u.avatar,alt=u.name,width="160",height="160")
+        .card__body
+          h3.card__title
+            a(href=`/users/${u.id}`)= u.name
+          p.card__meta #{u.role} · #{u.location}
+          p.card__text= u.bio
+          .tags
+            each t in u.tags
+              span.tag= t
+          p.card__actions
+            a.btn(href=`mailto:${u.email}`) Написати
+            a.btn.btn--ghost(href=`/users/${u.id}`) Профіль

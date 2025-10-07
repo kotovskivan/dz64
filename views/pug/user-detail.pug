@@ -1,0 +1,15 @@
+extends layout
+
+block content
+  section(aria-label="Деталі користувача" class="user-detail")
+    h1.user-detail__title Деталі користувача
+    article.user-detail__card
+      h2.user-detail__name= user.name
+      p.user-detail__meta ID: #{user.id} · Роль: #{user.role} · Місто: #{user.city}
+      if user.skills && user.skills.length
+        p.user-detail__email Навички:
+        ul.users__skills
+          each s in user.skills
+            li.users__skill= s
+      p.user-detail__email Email: #{user.email}
+    a.user-detail__back(href="/users") ← Повернутися до списку

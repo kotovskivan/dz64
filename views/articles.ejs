@@ -1,0 +1,37 @@
+<!doctype html>
+<html lang="uk">
+  <head>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width,initial-scale=1">
+    <title><%= title || 'Статті' %></title>
+    <link rel="stylesheet" href="/public/css/app.css">
+  </head>
+  <body class="ui">
+    <% try { %><%- include('partials/header') %><% } catch(e) { %><% } %>
+    <main class="container">
+      <h1><%= title %></h1>
+      <% if (!articles || articles.length === 0) { %>
+        <div class="empty">
+          <p>Немає статей у базі. (Опція) Заповнити демо-даними:
+            <form action="/dev/seed-articles" method="post" style="display:inline">
+              <button type="submit">Seed</button>
+            </form>
+          </p>
+        </div>
+      <% } else { %>
+        <ul class="cards">
+          <% articles.forEach(a => { %>
+            <li class="card">
+              <h3><%= a.title %></h3>
+              <% if (a.tags && a.tags.length) { %>
+                <p class="tags"><%= a.tags.join(', ') %></p>
+              <% } %>
+              <p><%= a.body %></p>
+              <small><%= new Date(a.createdAt).toLocaleString('uk-UA') %></small>
+            </li>
+          <% }) %>
+        </ul>
+      <% } %>
+    </main>
+  </body>
+</html>

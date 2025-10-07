@@ -1,0 +1,10 @@
+--- a/views/articles.ejs
++++ b/views/articles.ejs
+@@ -10,7 +10,7 @@
+   <div class="auth-block passport">
+     <h3>Passport</h3>
+-    <button id="check-passport">Перевірити /protected_passport</button>
++    <button id="check-passport">Перевірити доступ (Passport)</button>
+   </div>
+ 
+   <!-- JWT блок можна приховати, якщо не потрібен -->

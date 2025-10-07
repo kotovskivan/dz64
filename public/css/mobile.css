@@ -1,0 +1,7 @@
+@media (max-width: 767px){
+  .classy-header__inner{flex-wrap:wrap}
+  .classy-header__nav{width:100%;gap:10px;padding-top:6px}
+  .grid{grid-template-columns:1fr}
+  .container{padding:0 12px}
+  .h1{font-size:24px}
+}
